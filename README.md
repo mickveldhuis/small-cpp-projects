@@ -1,2 +1,2 @@
-# small_cpp_projects
-A collection of c++ projects I have wrote/will write whilst trying to learn the language. 
+# Small  C++ Projects
+A collection of c++ programs I have writte, or that I will write, trying to learn C++. 
