@@ -14,6 +14,11 @@ Matrix::~Matrix() {
 }
 
 void Matrix::fill(const double elements[]) {
+    /*
+        Fill the matrix (rowwise) with the doubles 
+        in elements. Note: the size of elements has 
+        to match the size of the matrix!
+    */
     for (int i = 0; i < nrows; ++i) {
         std::vector<double> row;
         for (int j = 0; j < ncols; ++j) {
@@ -25,6 +30,12 @@ void Matrix::fill(const double elements[]) {
 }
 
 Matrix Matrix::multiply(Matrix &other_matrix) {
+    /*
+        Returns the multiple of two matrices in the order:
+        this_matrix*other_matrix. Note that the number of 
+        columns of the first has to match the number of rows 
+        of the second matrix.
+    */
     const int onrows = other_matrix.getRowCount();
     const int oncols = other_matrix.getColCount();
     const matrix_d om = other_matrix.getMatrix();
@@ -55,6 +66,11 @@ Matrix Matrix::multiply(Matrix &other_matrix) {
 }
 
 Matrix Matrix::inverse(const double &epsilon) {
+    /*
+        Returns the inverse of the matrix, given some small 
+        value epsilon meant as error (since zero might be 
+        represented by a very small double).
+    */
     double det = this->determinant();
     Matrix adj = this->adjoint();
 
@@ -86,7 +102,6 @@ Matrix Matrix::transpose() {
     
     for (int i = 0; i < this->nrows; ++i) {
         for (int j = 0; j < this->ncols; ++j) {
-            // tmatrix[j][i] = matrix[i][j];
             trans_el[this->nrows*j + i] = matrix[i][j];
         }
     }

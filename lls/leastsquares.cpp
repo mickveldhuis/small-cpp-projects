@@ -43,3 +43,24 @@ matrix_d polulateDataMatrix(int nrows, int ncols, const double* data) {
     
     return matrix;
 }
+
+LeastSquares::LeastSquares() {
+
+}
+
+LeastSquares::~LeastSquares() {
+
+}
+
+void LeastSquares::fit() {
+
+}
+
+std::pair<double, double> LeastSquares::getParameters() {
+    /*
+        Returns a pair containing the two parameters of the fit 
+        with a linear model [y = ax + b].
+    */
+    std::pair<double, double> params = {this->slope, this->intercept};
+    return params;
+}
