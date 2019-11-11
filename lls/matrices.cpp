@@ -46,7 +46,6 @@ Matrix Matrix::multiply(Matrix &other_matrix) {
     }
 
     double prod_el[this->nrows*oncols];
-    std::vector<double> prod_elem;
 
     for(int i = 0; i < this->nrows; ++i) {
         for(int j = 0; j < oncols; ++j) {
@@ -59,7 +58,7 @@ Matrix Matrix::multiply(Matrix &other_matrix) {
             prod_el[this->nrows*i + j] = el;
         }
     }
-
+    
     Matrix product(this->nrows, oncols, prod_el);
 
     return product;

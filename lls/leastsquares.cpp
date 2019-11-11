@@ -1,50 +1,46 @@
 #include "leastsquares.h"
-#include <vector>
-#include <cmath>
 
 using matrix_d = std::vector< std::vector<double> >;
 
-matrix_d populateErrorMatrix(int n, const double* uncertainties) {
+Matrix LeastSquares::populateErrorMatrix(int n, const double uncertainties[]) {
     /*
         Generates a square diagonal matrix of uncertainties given a number of rows & columns 
         and a 1D array of uncertainties related to the y_n'th error.
     */
-
-    matrix_d matrix; // define dynamically allocated array & initialize rows
+    double error_el[n*n];
     
     for (int i = 0; i < n; ++i) {
-        std::vector<double> row;
         for (int j = 0; j < n; ++j) {
             if (i == j)
-                row.push_back(pow(uncertainties[i], 2));
+                error_el[n*i + j] = pow(uncertainties[i], 2);
             else
-                row.push_back(0);
+                error_el[n*i + j] = 0;
         }
-        matrix.push_back(row);
     }
+
+    Matrix matrix(n, n, error_el);
     
     return matrix;
 }
 
-matrix_d polulateDataMatrix(int nrows, int ncols, const double* data) {
+Matrix LeastSquares::polulateDataMatrix(int nrows, int ncols, const double data[]) {
     /*
-        Generates a matrix.
+        Generates a `data` matrix.
     */
-
-    matrix_d matrix; // define dynamically allocated array & initialize rows
+    double data_el[nrows*ncols];
     
     for (int i = 0; i < nrows; ++i) {
-        std::vector<double> row;
         for (int j = 0; j < ncols; ++j) {
-            row.push_back(pow(data[i], j));
+            data_el[nrows*i + j] = pow(data[i], j);
         }
-        matrix.push_back(row);
     }
     
+    Matrix matrix(nrows, ncols, data_el);
+
     return matrix;
 }
 
-LeastSquares::LeastSquares() {
+LeastSquares::LeastSquares(const double y_data[], const double x_data[], const double uncertainties[]) {
 
 }
 
