@@ -5,22 +5,30 @@
 
 class LeastSquares {
     private:
-        double slope;
-        double intercept;
+        Matrix parameters;
         Matrix cov;
         double chi_squared;
 
+        double* uncertainties;
+        double* y_data;
+        double* x_data;
+        
+        int N;
+
+        double calculateChi2();
+        double getModel(double x);
+
         Matrix polulateDataMatrix(int nrows, int ncols, const double data[]);
-        Matrix populateErrorMatrix(int n, const double uncertainties[]);
+        Matrix populateErrorMatrix(int n, const double unc[]);
 
     public:
-        LeastSquares(const double y_data[], const double x_data[], const double uncertainties[]);
+        LeastSquares(double y[], double x[], double unc[]);
         ~LeastSquares();
 
         void fit();
         double getChi2();
 
-        std::pair<double, double> getParameters();
+        std::vector<double> getParameters();
         Matrix getCovarianceMatrix();
 };
 

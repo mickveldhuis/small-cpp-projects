@@ -97,7 +97,7 @@ Matrix Matrix::transpose() {
         Returns the transpose of the matrix.
     */
 
-   double trans_el[this->nrows*this->ncols];
+    double trans_el[this->nrows*this->ncols];
     
     for (int i = 0; i < this->nrows; ++i) {
         for (int j = 0; j < this->ncols; ++j) {
