@@ -128,6 +128,18 @@ matrix_d Matrix::getMatrix() {
     return this->matrix;
 }
 
+std::vector<double> Matrix::flatten() {
+    std::vector<double> flat;
+
+    for (int i = 0; i < this->nrows; ++i) {
+        for (int j = 0; j < this->ncols; ++j) {
+            flat.push_back(this->matrix[i][j]); 
+        }
+    }
+
+    return flat;
+}
+
 double Matrix::determinant(const matrix_d &mat) {
     if (mat.size()*mat[0].size() == 1)
         return mat[0][0];

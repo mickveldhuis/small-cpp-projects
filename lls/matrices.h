@@ -27,6 +27,8 @@ class Matrix {
         Matrix inverse(const double &epsilon = 0.0000001);
         Matrix transpose();
         Matrix adjoint();
+
+        std::vector<double> flatten();
         
         double determinant();
 
