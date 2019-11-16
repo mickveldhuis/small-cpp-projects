@@ -3,19 +3,37 @@
 #include <vector>
 #include <cmath>
 #include "matrices.h"
+#include "leastsquares.h"
 
-using matrix_d = std::vector<std::vector<double>>;
+int main(int argc, char** argv) {
+    int n = 6;
 
-void printMatrix(const matrix_d &matrix) {
-    std::cout << "------------- [MATRIX] -------------" << std::endl;
-    for (int i = 0; i < matrix.size(); ++i) {
-        for (int j = 0; j < matrix[i].size(); ++j) {
-            std::cout << matrix[i][j] << "\t";
-        }
-        std::cout << std::endl;
-    }
-    std::cout << "----------- [END MATRIX] -----------" << std::endl;
+    std::vector<double> x = {1.5, 1.8, 2.5, 2.9, 3.3, 3.8};
+    std::vector<double> y = {10, 14, 2, 26, 31, 40};
+    std::vector<double> u = {1, 2, 1, 3, 1, 1};
+
+    LeastSquares lls(y, x, u);
+    lls.fit();
+
+    // for (double param : lls.getParameters()) {
+    //     std::cout << "Parameters: " << param << std::endl;
+    // }
+
+    return 0;
 }
+
+// using matrix_d = std::vector<std::vector<double>>;
+
+// void printMatrix(const matrix_d &matrix) {
+//     std::cout << "------------- [MATRIX] -------------" << std::endl;
+//     for (int i = 0; i < matrix.size(); ++i) {
+//         for (int j = 0; j < matrix[i].size(); ++j) {
+//             std::cout << matrix[i][j] << "\t";
+//         }
+//         std::cout << std::endl;
+//     }
+//     std::cout << "----------- [END MATRIX] -----------" << std::endl;
+// }
 
 // matrix_d populateErrorMatrix(int n, const double* uncertainties) {
 //     /*
@@ -200,40 +218,40 @@ void printMatrix(const matrix_d &matrix) {
 //     return matrix;
 // }
 
-int main(int argc, char** argv) {
+// int main(int argc, char** argv) {
 
-    Matrix A(2, 2);
-    Matrix B(2, 2);
-    Matrix C(3, 3);
+//     Matrix A(2, 2);
+//     Matrix B(2, 2);
+//     Matrix C(3, 3);
 
-    double arra[4] = {3, 1, 4, 1};
-    double arrb[4] = {7, 5, 0, 2};
+//     double arra[4] = {3, 1, 4, 1};
+//     double arrb[4] = {7, 5, 0, 2};
 
-    A.fill(arra);
-    B.fill(arrb);
+//     A.fill(arra);
+//     B.fill(arrb);
 
-    Matrix A_T = A.transpose();
-    A.show();
-    A_T.show();
+//     Matrix A_T = A.transpose();
+//     A.show();
+//     A_T.show();
 
-    Matrix AB = A.multiply(B);
-    AB.show();  
+//     Matrix AB = A.multiply(B);
+//     AB.show();  
 
-    // double arr[9] = {2, 5, 4, 3, 1, 2, 5, 4, 6};
-    double arrc[9] = {2, 1, 2, 3, 2, 2, 1, 2, 3};
+//     // double arr[9] = {2, 5, 4, 3, 1, 2, 5, 4, 6};
+//     double arrc[9] = {2, 1, 2, 3, 2, 2, 1, 2, 3};
 
-    C.fill(arrc);
-    C.show();
+//     C.fill(arrc);
+//     C.show();
 
-    double d = C.determinant();
+//     double d = C.determinant();
 
-    std::cout << "Det(C) = " << d << std::endl;
+//     std::cout << "Det(C) = " << d << std::endl;
 
-    Matrix adj_c = C.adjoint();
-    adj_c.show();
+//     Matrix adj_c = C.adjoint();
+//     adj_c.show();
 
-    Matrix inv_result = C.inverse();
-    inv_result.show();
+//     Matrix inv_result = C.inverse();
+//     inv_result.show();
     
-    return 0;
-}
+//     return 0;
+// }

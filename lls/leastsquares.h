@@ -5,24 +5,25 @@
 
 class LeastSquares {
     private:
-        Matrix parameters;
-        Matrix cov;
+        // Matrix parameters;
+        std::vector<double> parameters;
+        // Matrix cov; // Needs default constructor!
         double chi_squared;
 
-        double* uncertainties;
-        double* y_data;
-        double* x_data;
+        std::vector<double> uncertainties;
+        std::vector<double> y_data;
+        std::vector<double> x_data;
         
         int N;
 
         double calculateChi2();
         double getModel(double x);
 
-        Matrix polulateDataMatrix(int nrows, int ncols, const double data[]);
-        Matrix populateErrorMatrix(int n, const double unc[]);
+        Matrix polulateDataMatrix(int nrows, int ncols, const std::vector<double> data);
+        Matrix populateErrorMatrix(int n, const std::vector<double> unc);
 
     public:
-        LeastSquares(double y[], double x[], double unc[]);
+        LeastSquares(std::vector<double> y, std::vector<double> x, std::vector<double> unc);
         ~LeastSquares();
 
         void fit();
