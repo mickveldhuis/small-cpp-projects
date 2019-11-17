@@ -28,10 +28,10 @@ Matrix LeastSquares::polulateDataMatrix(int nrows, int ncols, const std::vector<
         Generates a `data` matrix.
     */
     double data_el[nrows*ncols];
-    
+
     for (int i = 0; i < nrows; ++i) {
         for (int j = 0; j < ncols; ++j) {
-            data_el[nrows*i + j] = pow(data[i], j);
+            data_el[ncols*i + j] = pow(data[i], j);
         }
     }
     
@@ -57,22 +57,22 @@ LeastSquares::~LeastSquares() {
 
 void LeastSquares::fit() {
     int n_params = 2;
-
+    
     Matrix E = this->populateErrorMatrix(this->N, this->uncertainties);
-    Matrix A = this->polulateDataMatrix(n_params, this->N, this->x_data);
-    Matrix Y(1, this->N, this->y_data.data);
+    Matrix A = this->polulateDataMatrix(this->N, n_params, this->x_data);
+    Matrix Y(this->N, 1, this->y_data.data());
 
-    E.show();
+    Matrix E_inv = E.inverse();
+    Matrix A_trans = A.transpose();
 
-    // Matrix E_inv = E.inverse();
-    // Matrix cov_matrix = (A.transpose().multiply(E_inv).multiply(A)).inverse();
-    // Matrix rest = A.transpose().multiply(E_inv).multiply(Y);
-
-    // Matrix params = cov_matrix.multiply(rest);
+    Matrix cov_matrix = (A_trans.multiply(E_inv).multiply(A)).inverse();
+    Matrix rest = A_trans.multiply(E_inv).multiply(Y);
+    
+    Matrix params = cov_matrix.multiply(rest);
 
     // this->cov = cov_matrix;
-    // this->parameters = params.flatten();
-    // this->chi_squared = this->calculateChi2();
+    this->parameters = params.flatten();
+    this->chi_squared = this->calculateChi2();
 }
 
 std::vector<double> LeastSquares::getParameters() {
@@ -102,4 +102,8 @@ double LeastSquares::getModel(double x) {
     }
     
     return m_value;
+}
+
+double LeastSquares::getChi2() {
+    return this->chi_squared;
 }

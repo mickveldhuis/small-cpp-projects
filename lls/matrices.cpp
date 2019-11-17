@@ -19,10 +19,10 @@ void Matrix::fill(const double elements[]) {
         in elements. Note: the size of elements has 
         to match the size of the matrix!
     */
-    for (int i = 0; i < nrows; ++i) {
+    for (int i = 0; i < this->nrows; ++i) {
         std::vector<double> row;
-        for (int j = 0; j < ncols; ++j) {
-            double val = elements[this->nrows*i+j];
+        for (int j = 0; j < this->ncols; ++j) {
+            double val = elements[this->ncols*i+j];
             row.push_back(val);
         }
         this->matrix.push_back(row);
@@ -55,7 +55,7 @@ Matrix Matrix::multiply(Matrix &other_matrix) {
                 el += this->matrix[i][k] * om[k][j];
             }
             
-            prod_el[this->nrows*i + j] = el;
+            prod_el[oncols*i + j] = el;
         }
     }
     
@@ -83,7 +83,7 @@ Matrix Matrix::inverse(const double &epsilon) {
 
     for (int i = 0; i < this->nrows; ++i) {
         for (int j = 0; j < this->ncols; ++j) {
-            inv_el[this->nrows*i + j] = adj_matrix[i][j]/det;
+            inv_el[this->ncols*i + j] = adj_matrix[i][j]/det;
         }
     }
     
