@@ -15,6 +15,7 @@ class LeastSquares {
         std::vector<double> x_data;
         
         int N;
+        int num_params;
 
         double calculateChi2();
         double getModel(double x);
@@ -23,11 +24,12 @@ class LeastSquares {
         Matrix populateErrorMatrix(int n, const std::vector<double> unc);
 
     public:
-        LeastSquares(std::vector<double> y, std::vector<double> x, std::vector<double> unc);
+        LeastSquares(std::vector<double> y, std::vector<double> x, std::vector<double> unc, int n_params = 2);
         ~LeastSquares();
 
         void fit();
         double getChi2();
+        void fitReport();
 
         std::vector<double> getParameters();
         Matrix getCovarianceMatrix();

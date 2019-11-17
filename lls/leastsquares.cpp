@@ -40,12 +40,13 @@ Matrix LeastSquares::polulateDataMatrix(int nrows, int ncols, const std::vector<
     return matrix;
 }
 
-LeastSquares::LeastSquares(std::vector<double> y, std::vector<double> x, std::vector<double> unc) {
+LeastSquares::LeastSquares(std::vector<double> y, std::vector<double> x, std::vector<double> unc, int n_params) {
     this->uncertainties = unc;
     this->y_data = y;
     this->x_data = x;
 
     this->N = y.size();
+    this->num_params = n_params;
 
     if (this->N != this->x_data.size() || this->N != this->uncertainties.size() || this->x_data.size() != this->uncertainties.size()) {
         throw std::invalid_argument("Arrays x, y, and unc don't all have the same dimensions!");
@@ -106,4 +107,22 @@ double LeastSquares::getModel(double x) {
 
 double LeastSquares::getChi2() {
     return this->chi_squared;
+}
+
+void LeastSquares::fitReport() {
+    std::cout << "-------------------------------------------------------------------------" << std::endl;
+    std::cout << "|   Model: y = a[0] + a[1]*x + a[2]*x^2 + ... + a[n]*x^n [with n = " << this->num_params  << "]   |" << std::endl;
+    std::cout << "-------------------------------------------------------------------------" << std::endl << std::endl;
+    std::cout << "    Parameters = { ";
+    for (int i = 0; i < this->num_params; ++i) {
+        std::string prefix = "";
+
+        if (i != 0)
+            prefix = ", ";
+
+        std::cout << prefix << "a[" << i << "] = " << this->parameters[i];
+    }
+    std::cout << " }" << std::endl;
+
+    std::cout << "    Chi^2      = " << this->chi_squared << std::endl;
 }

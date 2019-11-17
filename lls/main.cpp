@@ -9,12 +9,7 @@ int main(int argc, char** argv) {
 
     LeastSquares lls(y, x, u);
     lls.fit();
-
-    for (double param : lls.getParameters()) {
-        std::cout << "Parameters: " << param << std::endl;
-    }
-
-    std::cout << "Chi^2 = " << lls.getChi2() << std::endl;
+    lls.fitReport();
 
     return 0;
 }
