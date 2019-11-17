@@ -7,7 +7,7 @@ CXXFLAGS = #-g -Wall
 all: $(TARGET)
 
 $(TARGET): $(OBJS)
-		$(CXX) $(OBJS) -o $(TARGET)
+		$(CXX) $(OBJS) -o $@
 
 .cpp.o:
 		$(CXX) -c $(CXXFLAGS)  $<
