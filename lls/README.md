@@ -5,4 +5,3 @@ Implementation of polynomial linear least squares fitting as outlined in chapter
 ## Todo:
 
 * Add ability to give the data as commandline arguments
-* Add makefile
