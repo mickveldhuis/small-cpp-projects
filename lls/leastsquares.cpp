@@ -57,10 +57,8 @@ LeastSquares::~LeastSquares() {
 }
 
 void LeastSquares::fit() {
-    int n_params = 2;
-    
     Matrix E = this->populateErrorMatrix(this->N, this->uncertainties);
-    Matrix A = this->polulateDataMatrix(this->N, n_params, this->x_data);
+    Matrix A = this->polulateDataMatrix(this->N, this->num_params, this->x_data);
     Matrix Y(this->N, 1, this->y_data.data());
 
     Matrix E_inv = E.inverse();
