@@ -1,5 +1,4 @@
-#ifndef __MAT_H_INCLUDED__
-#define  __MAT_H_INCLUDED__ 
+#pragma once
 
 #include <iostream>
 #include <exception>
@@ -40,5 +39,3 @@ class Matrix {
 
         matrix_d getMatrix();
 };
-
-#endif 

@@ -1,11 +1,13 @@
 #include "leastsquares.h"
+#include "graphdatareader.h"
 
 int main(int argc, char** argv) {
-    int n = 6;
+    GraphDataReader dr("data.txt");
+    dr.readtxt(3);
 
-    std::vector<double> x = {1.5, 1.8, 2.5, 2.9, 3.3, 3.8};
-    std::vector<double> y = {10, 14, 21, 26, 31, 40};
-    std::vector<double> u = {1, 2, 1, 3, 2, 1};
+    std::vector<double> x = dr.get_x_data();
+    std::vector<double> y = dr.get_y_data();
+    std::vector<double> u = dr.get_unc_data();
 
     LeastSquares lls(y, x, u);
     lls.fit();

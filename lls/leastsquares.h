@@ -1,5 +1,4 @@
-#ifndef __LEASTSQUARES_H_INCLUDED__
-#define  __LEASTSQUARES_H_INCLUDED__ 
+#pragma once
 
 #include "matrices.h"
 
@@ -34,5 +33,3 @@ class LeastSquares {
         std::vector<double> getParameters();
         Matrix getCovarianceMatrix();
 };
-
-#endif 

@@ -1,6 +1,6 @@
 CXX = g++
 TARGET = polyfitter
-SOURCES = fitter.cpp leastsquares.cpp matrices.cpp
+SOURCES = fitter.cpp leastsquares.cpp matrices.cpp graphdatareader.cpp
 OBJS = $(SOURCES:.cpp=.o)
 CXXFLAGS = #-g -Wall
 
