@@ -2,6 +2,18 @@
 
 Implementation of polynomial linear least squares fitting as outlined in chapter 1 of `Data analysis recipes: Fitting a model to data` (https://arxiv.org/pdf/1008.4686.pdf).
 
-## Todo:
+## How to use it
+ 
+Compile the project using `make` (and the file `makefile`) then you can run the programm like
 
-* Add ability to give the data as commandline arguments
+```
+./polyfitter FILENAME
+```
+
+e.g.
+
+```
+./polyfitter data.txt
+```
+
+where the supplied file should contain three columns (x, y, uncertainties in y), use spaces (not commas or anything else) between the columns.
