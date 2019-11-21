@@ -7,13 +7,13 @@ Implementation of polynomial linear least squares fitting as outlined in chapter
 Compile the project using `make` (and the file `makefile`) then you can run the program like
 
 ```
-./polyfitter FILENAME
+./polyfitter FILENAME NUMBER_OF_PARAMETERS
 ```
 
-e.g.
+e.g. (for a file `data.txt` and a simple model of the form `y = a+bx`)
 
 ```
-./polyfitter data.txt
+./polyfitter data.txt 2
 ```
 
 where the supplied file should contain three columns (x, y, uncertainties in y), use spaces (not commas or anything else) between the columns.
