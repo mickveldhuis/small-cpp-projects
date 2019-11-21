@@ -13,12 +13,14 @@ Matrix::~Matrix() {
     this->matrix.clear();
 }
 
+/**
+    Fill a matrix row wise with the supplied array of elements.
+    Note: the size of elements has to match the size of the matrix!
+    
+    @param elements the doubles array containing the elements to be entered into the matrix.
+    @return the 'filled' matrix.
+*/
 void Matrix::fill(const double elements[]) {
-    /*
-        Fill the matrix (rowwise) with the doubles 
-        in elements. Note: the size of elements has 
-        to match the size of the matrix!
-    */
     for (int i = 0; i < this->nrows; ++i) {
         std::vector<double> row;
         for (int j = 0; j < this->ncols; ++j) {
@@ -29,13 +31,16 @@ void Matrix::fill(const double elements[]) {
     }
 }
 
+/**
+    Returns the multiple of two matrices in the order:
+    this_matrix*other_matrix. Note that the number of 
+    columns of the first has to match the number of rows 
+    of the second matrix.
+    
+    @param other_matrix the other matrix.
+    @return the product of the two matrices.
+*/
 Matrix Matrix::multiply(Matrix &other_matrix) {
-    /*
-        Returns the multiple of two matrices in the order:
-        this_matrix*other_matrix. Note that the number of 
-        columns of the first has to match the number of rows 
-        of the second matrix.
-    */
     const int onrows = other_matrix.getRowCount();
     const int oncols = other_matrix.getColCount();
     const matrix_d om = other_matrix.getMatrix();
@@ -64,12 +69,15 @@ Matrix Matrix::multiply(Matrix &other_matrix) {
     return product;
 }
 
+/**
+    Returns the inverse of the matrix, given some small 
+    value epsilon meant as error (since zero might be 
+    represented by a very small double).
+    
+    @param epsilon the double resembling an error term, often rather small.
+    @return the inverse of this matrix.
+*/
 Matrix Matrix::inverse(const double &epsilon) {
-    /*
-        Returns the inverse of the matrix, given some small 
-        value epsilon meant as error (since zero might be 
-        represented by a very small double).
-    */
     double det = this->determinant();
     Matrix adj = this->adjoint();
 
@@ -92,11 +100,12 @@ Matrix Matrix::inverse(const double &epsilon) {
     return inv;
 }
 
+/**
+    Yields the transpose of this matrix.
+    
+    @return the transpose of this matrix.
+*/
 Matrix Matrix::transpose() {
-    /*
-        Returns the transpose of the matrix.
-    */
-
     double trans_el[this->nrows*this->ncols];
     
     for (int i = 0; i < this->nrows; ++i) {
@@ -110,6 +119,11 @@ Matrix Matrix::transpose() {
     return tmatrix;
 }
 
+/**
+    Yields the adjoint of this matrix.
+    
+    @return the adjoint of this matrix.
+*/
 Matrix Matrix::adjoint() {
     double adj_el[this->nrows*this->ncols];
 
@@ -128,6 +142,11 @@ matrix_d Matrix::getMatrix() {
     return this->matrix;
 }
 
+/**
+    Convert the matrix into a 1D vector.
+    
+    @return a vector of the elements of this matrix.
+*/
 std::vector<double> Matrix::flatten() {
     std::vector<double> flat;
 
@@ -140,6 +159,12 @@ std::vector<double> Matrix::flatten() {
     return flat;
 }
 
+/**
+    Yields the determinant of a matrix.
+
+    @param mat the matrix of which the determinant will be calculated.
+    @return the determinant of the matrix mat.
+*/
 double Matrix::determinant(const matrix_d &mat) {
     if (mat.size()*mat[0].size() == 1)
         return mat[0][0];
@@ -166,11 +191,24 @@ double Matrix::determinant(const matrix_d &mat) {
     return det;
 }
 
+/**
+    Yields the determinant of this matrix.
+
+    @return the determinant of this matrix.
+*/
 double Matrix::determinant() {
     const matrix_d M = this->matrix;
     return this->determinant(M);
 }
 
+/**
+    Yields the cofactor of a matrix at a certain position.
+
+    @param mat the matrix for which the cofactor will be calculated.
+    @param row the integer row that will be expanded on.
+    @param col the integer column that will be expanded on.
+    @return the cofactor as a matrix.
+*/
 double Matrix::cofactor(const matrix_d &mat, int row, int col) {
     matrix_d minor;
 
@@ -188,6 +226,9 @@ double Matrix::cofactor(const matrix_d &mat, int row, int col) {
     return pow(-1, 2 + row + col)*determinant(minor);    
 }
 
+/**
+    Displays this matrix.
+*/
 void Matrix::show() {
     std::cout << "-------------- [  MATRIX  ] --------------" << std::endl;
     

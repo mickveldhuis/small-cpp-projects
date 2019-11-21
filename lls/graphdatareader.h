@@ -21,7 +21,7 @@ class GraphDataReader {
         GraphDataReader(std::string filename);
         ~GraphDataReader();
 
-        void readtxt(int ncols, int nx_col = 1, int ny_col = 2, int nunc_col = 3);
+        void readtxt();
         std::vector<double> get_x_data();
         std::vector<double> get_y_data();
         std::vector<double> get_unc_data();
