@@ -4,7 +4,7 @@ Implementation of polynomial linear least squares fitting as outlined in chapter
 
 ## How to use it
  
-Compile the project using `make` (and the file `makefile`) then you can run the programm like
+Compile the project using `make` (and the file `makefile`) then you can run the program like
 
 ```
 ./polyfitter FILENAME
