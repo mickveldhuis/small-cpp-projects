@@ -1,7 +1,7 @@
 .vscode/
 
-*.out
-*.gch
-*.o
+# CMake
+build/
 
-*.txt
+# clangd
+.cache/
