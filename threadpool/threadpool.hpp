@@ -13,13 +13,13 @@ public:
   ThreadPool(std::size_t n_threads);
   ~ThreadPool();
 
-  void push_task(std::function<void()> task);
-  void stop();
+  void PushTask(std::function<void()> task);
+  void Stop();
 
-  void wait_until_finished();
+  void WaitUntilFinished();
 
 private:
-  void worker();
+  void Worker();
 
   std::vector<std::thread> threads_;
   std::queue<std::function<void()>> tasks_;

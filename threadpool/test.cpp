@@ -1,8 +1,8 @@
-#include <iostream>
+#include <gtest/gtest.h>
 
 #include "threadpool.hpp"
 
-int main() {
+TEST(ThreadPoolTest, test_thread_pool) {
   using namespace std::chrono_literals;
 
   const int n_tasks = 16;
@@ -12,17 +12,15 @@ int main() {
   ThreadPool pool(4);
 
   for (int i = 0; i < n_tasks; ++i) {
-    pool.push_task([i, &squares] () {
+    pool.PushTask([i, &squares] () {
       squares[i] = i * i;
       std::this_thread::sleep_for(100ms);
     });
   }
 
-  pool.wait_until_finished();
+  pool.WaitUntilFinished();
 
-  std::cout << "Got some results: ";
-  for (int s : squares) {
-    std::cout << s << " ";
+  for (int i = 0; i < n_tasks; ++i) {
+    EXPECT_EQ(squares[i], i * i);
   }
-  std::cout << std::endl;
 }

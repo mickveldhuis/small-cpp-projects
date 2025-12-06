@@ -18,15 +18,15 @@ ThreadPool::ThreadPool(std::size_t n_threads) {
   }
 
 	for (int t = 0; t < n_threads; ++t) {
-		threads_.emplace_back([this] () { worker(); });
+		threads_.emplace_back([this] () { Worker(); });
 	}
 }
 
 ThreadPool::~ThreadPool() {
-	stop();
+	Stop();
 }
 
-void ThreadPool::worker() {
+void ThreadPool::Worker() {
 	while(true) {
 		std::function<void()> task;
 		
@@ -55,7 +55,7 @@ void ThreadPool::worker() {
 	}
 }
 
-void ThreadPool::push_task(std::function<void()> task) {
+void ThreadPool::PushTask(std::function<void()> task) {
 	std::unique_lock<std::mutex> lock(mutex_);
 	tasks_.push(std::move(task));
 	lock.unlock();
@@ -63,7 +63,7 @@ void ThreadPool::push_task(std::function<void()> task) {
 	mutex_condition_.notify_one();
 }
 
-void ThreadPool::stop() {
+void ThreadPool::Stop() {
 	std::unique_lock<std::mutex> lock(mutex_);
 	stop_ = true;
 	lock.unlock();
@@ -78,7 +78,7 @@ void ThreadPool::stop() {
 	stop_ = false;
 }
 
-void ThreadPool::wait_until_finished() {
+void ThreadPool::WaitUntilFinished() {
   std::unique_lock<std::mutex> lock(mutex_);
   
 	tasks_finished_condition_.wait(lock, [this] () { return tasks_.empty() && active_tasks_ == 0; });
